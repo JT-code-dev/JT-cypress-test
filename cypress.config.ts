@@ -1,9 +1,19 @@
-import { defineConfig } from "cypress";
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
   e2e: {
-    baseUrl: "http://127.0.0.1:3001", // Change this to match your client URL
-    supportFile: false,
+    baseUrl: 'http://127.0.0.1:3001',
+    supportFile: 'cypress/support/e2e.ts',
+  },
+  component: {
+    devServer: {
+      framework: 'react',
+      bundler: 'vite',
+    },
+    supportFile: 'cypress/support/component.ts',
+    devServerConfig: {
+      tsConfigFile: 'tsconfig.json', // 👈 This tells Cypress to use your root config
+    },
   },
 });
 
