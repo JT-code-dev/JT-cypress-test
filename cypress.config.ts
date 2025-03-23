@@ -12,7 +12,7 @@ export default defineConfig({
     },
     supportFile: 'cypress/support/component.ts',
     devServerConfig: {
-      tsConfigFile: 'tsconfig.json', // 👈 This tells Cypress to use your root config
+      tsConfigFile: 'tsconfig.json', // 
     },
   },
 });
