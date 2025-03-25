@@ -1,0 +1,21 @@
+[
+    {
+      "question": "What does the 'def' keyword do in Python?",
+      "answers": [
+        { "text": "Defines a variable", "isCorrect": false },
+        { "text": "Starts a function", "isCorrect": true },
+        { "text": "Deletes a file", "isCorrect": false },
+        { "text": "Defines a class", "isCorrect": false }
+      ]
+    },
+    {
+      "question": "Which of the following is a valid Python list?",
+      "answers": [
+        { "text": "{1, 2, 3}", "isCorrect": false },
+        { "text": "(1, 2, 3)", "isCorrect": false },
+        { "text": "[1, 2, 3]", "isCorrect": true },
+        { "text": "<1, 2, 3>", "isCorrect": false }
+      ]
+    }
+  ]
+  

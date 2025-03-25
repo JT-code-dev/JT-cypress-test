@@ -1,25 +1,31 @@
-import { useState, } from 'react';
+import { useState } from 'react';
 import type { Question } from '../models/Question.js';
 import { getQuestions } from '../services/questionApi.js';
 
-const Quiz = () => {
-  const [questions, setQuestions] = useState<Question[]>([]);
+// Added props
+type QuizProps = {
+  initialQuestions?: Question[];
+};
+
+// Receive props here
+const Quiz = ({ initialQuestions }: QuizProps) => {
+  // Use initialQuestions if provided (for component tests)
+  const [questions, setQuestions] = useState<Question[]>(initialQuestions || []);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
 
+  // Only fetch if not using test data
   const getRandomQuestions = async () => {
-    try {
-      const questions = await getQuestions();
-
-      if (!questions) {
-        throw new Error('something went wrong!');
+    if (!initialQuestions) {
+      try {
+        const fetched = await getQuestions();
+        if (!fetched) throw new Error('something went wrong!');
+        setQuestions(fetched);
+      } catch (err) {
+        console.error(err);
       }
-
-      setQuestions(questions);
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -84,12 +90,12 @@ const Quiz = () => {
     <div className='card p-4'>
       <h2>{currentQuestion.question}</h2>
       <div className="mt-3">
-      {currentQuestion.answers.map((answer, index) => (
-        <div key={index} className="d-flex align-items-center mb-2">
-          <button className="btn btn-primary" onClick={() => handleAnswerClick(answer.isCorrect)}>{index + 1}</button>
-          <div className="alert alert-secondary mb-0 ms-2 flex-grow-1">{answer.text}</div>
-        </div>
-      ))}
+        {currentQuestion.answers.map((answer, index) => (
+          <div key={index} className="d-flex align-items-center mb-2">
+            <button className="btn btn-primary" onClick={() => handleAnswerClick(answer.isCorrect)}>{index + 1}</button>
+            <div className="alert alert-secondary mb-0 ms-2 flex-grow-1">{answer.text}</div>
+          </div>
+        ))}
       </div>
     </div>
   );
